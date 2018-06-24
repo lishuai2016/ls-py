@@ -1,8 +1,7 @@
 from  math import sqrt
 
-#基于用户的协同推荐思路
-#1、计算指定用户和系统的所有用户之间的相识度，找出和用户最为相似的topN个用户
-#2、根据相似用户topN的物品列表推荐物品，这里涉及到对推荐物品的排名计算
+#基于物品的协同推荐思路
+
 
 
 
@@ -95,7 +94,7 @@ def sim_pearson(prefs, p1, p2):
 # print(sim_pearson(critics,'Lisa Rose','Gene Seymour'))
 
 
-#根据相似度计算返回和指定用户最为匹配的n个用户（给系统中的其他评论者打分，返回匹配的topN）
+
 # Returns the best matches for person from the prefs dictionary.
 # Number of results and similarity function are optional params.
 def topMatches(prefs,person,n=5,similarity=sim_pearson):
