@@ -47,7 +47,7 @@ for feedurl in feedlist:
 wordlist=[]
 for w,bc in apcount.items():
   frac=float(bc)/len(feedlist)
-  if frac>0.1 and frac<0.5:
+  if frac>0.1 and frac<0.5:   #过滤高频的常见单词，如zhe；以及非常不常见的个别单词，指定上下界限
     wordlist.append(w)
 
 out=file('blogdata1.txt','w')
@@ -61,3 +61,6 @@ for blog,wc in wordcounts.items():
     if word in wc: out.write('\t%d' % wc[word])
     else: out.write('\t0')
   out.write('\n')
+
+
+#该程序的最终生成一个blogdata.txt的文本文件
