@@ -55,10 +55,10 @@ class searcher:
     def getscoredlist(self, rows, wordids):
         totalscores = dict([(row[0], 0) for row in rows])
 
-        # This is where we'll put our scoring functions
-        weights = [(1.0, self.locationscore(rows)),
-                 (1.0, self.frequencyscore(rows)),
-                 (1.0, self.pagerankscore(rows)),
+        # This is where we'll put our scoring functions 评价函数
+        weights = [(1.0, self.locationscore(rows)),   #位置评价得分
+                 (1.0, self.frequencyscore(rows)),    #单词频率得分
+                 (1.0, self.pagerankscore(rows)),    #PageRank得分
                  (1.0, self.linktextscore(rows, wordids)),
                  (5.0, self.nnscore(rows, wordids))]
         for (weight, scores) in weights:
