@@ -1,5 +1,6 @@
 from PIL import Image,ImageDraw
 
+#读入数据文件，返回的是表头信息、每一行的开头列、数据
 def readfile(filename):
   lines=[line for line in file(filename)]
   
@@ -18,6 +19,7 @@ def readfile(filename):
 
 from math import sqrt
 
+#计算皮尔逊相关度，这里做了处理，用1减皮尔逊相关度，这样使得越是相近的距离越小
 def pearson(v1,v2):
   # Simple sums
   sum1=sum(v1)
@@ -37,6 +39,7 @@ def pearson(v1,v2):
 
   return 1.0-num/den
 
+#定义分层级聚类
 class bicluster:
   def __init__(self,vec,left=None,right=None,distance=0.0,id=None):
     self.left=left
@@ -49,7 +52,7 @@ def hcluster(rows,distance=pearson):
   distances={}
   currentclustid=-1
 
-  # Clusters are initially just the rows
+  # Clusters are initially just the rows 最初的聚类就是行数据
   clust=[bicluster(rows[i],id=i) for i in range(len(rows))]
 
   while len(clust)>1:
