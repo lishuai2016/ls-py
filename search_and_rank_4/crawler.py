@@ -4,6 +4,7 @@ from bs4 import  BeautifulSoup
 import re
 import pymysql
 
+#主要从网上爬取数据，在MySQL数据库中建立索引
 
 # Create a list of words to ignore
 ignorewords={'the':1,'of':1,'to':1,'and':1,'a':1,'in':1,'is':1,'it':1}
@@ -149,55 +150,39 @@ class crawler:
         self.con.cursor().execute('''create index urlfromidx on link(fromid)''')
         self.dbcommit()
 
+    #PageRank排名算法
+    def calculatepagerank(self, iterations=20):
+        # clear out the current page rank tables
+        self.con.execute('drop table if exists pagerank')
+        self.con.execute('create table pagerank(urlid primary key,score)')
+
+        # initialize every url with a page rank of 1
+        for (urlid,) in self.con.execute('select rowid from urllist'):
+            self.con.execute('insert into pagerank(urlid,score) values (%d,1.0)' % urlid)
+        self.dbcommit()
+
+        for i in range(iterations):
+            print
+            "Iteration %d" % (i)
+            for (urlid,) in self.con.execute('select rowid from urllist'):
+                pr = 0.15
+
+                # Loop through all the pages that link to this one
+                for (linker,) in self.con.execute(
+                                'select distinct fromid from link where toid=%d' % urlid):
+                    # Get the page rank of the linker
+                    linkingpr = self.con.execute(
+                        'select score from pagerank where urlid=%d' % linker).fetchone()[0]
+
+                    # Get the total number of links from the linker
+                    linkingcount = self.con.execute(
+                        'select count(*) from link where fromid=%d' % linker).fetchone()[0]
+                    pr += 0.85 * (linkingpr / linkingcount)
+                self.con.execute(
+                    'update pagerank set score=%f where urlid=%d' % (pr, urlid))
+            self.dbcommit()
 
 #***********************************************************************************************************
-
-class searcher:
-  def __init__(self,dbname):
-    self.con = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd='', db=dbname, charset='utf8')
-    self.cursor = self.con.cursor()
-
-  def __del__(self):
-    self.con.close()
-
-  #把字符串查询且分为多个单词查询
-  def getmatchrows(self,q):
-    # Strings to build the query
-    fieldlist='w0.urlid'
-    tablelist=''
-    clauselist=''
-    wordids=[]
-
-    # Split the words by spaces
-    words=q.split(' ')
-    tablenumber=0
-
-    for word in words:
-      # Get the word ID
-      self.cursor.execute(''' select rowid from wordlist where word='%s' ''' % word)
-      wordrow = self.cursor.fetchone()
-      if wordrow!=None:
-        wordid=wordrow[0]
-        wordids.append(wordid)
-        if tablenumber>0:
-          tablelist+=','
-          clauselist+=' and '
-          clauselist+='w%d.urlid=w%d.urlid and ' % (tablenumber-1,tablenumber)
-        fieldlist+=',w%d.location' % tablenumber
-        tablelist+='wordlocation w%d' % tablenumber
-        clauselist+='w%d.wordid=%d' % (tablenumber,wordid)
-        tablenumber+=1
-
-    # Create the query from the separate parts
-    fullquery=''' select %s from %s where %s ''' % (fieldlist,tablelist,clauselist)
-    print(fullquery)
-    cur=self.con.execute(fullquery)
-    rows=[row for row in cur]
-
-    return rows,wordids
-
-
-
 
 
 

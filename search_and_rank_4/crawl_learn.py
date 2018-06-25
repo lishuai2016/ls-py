@@ -29,7 +29,7 @@ import urllib.parse
 # response = urllib.request.urlopen('http://httpbin.org/post', data=data)
 # print(response.read())
 v=""
-if v == Null:
+if v == None:
     print("111111")
 else:
     print("22222")
