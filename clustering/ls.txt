@@ -1,5 +1,12 @@
 feedparser的下载地址
 http://www.feedparser.com/
 
+clusters_ls.py是主要算法代码
+generatefeedvector.py作用是生成blogdata.txt数据
 
-分级聚类的概念
+设计到的几种聚类概念：
+分级聚类：缺点计算量大、没有外界的干预的话不会将数据分组进行拆分，最总聚类为一个类；
+KNN聚类：特点，预先告诉生成的聚类个数
+
+
+
