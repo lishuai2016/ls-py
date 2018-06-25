@@ -1,0 +1,45 @@
+Python问题：
+1、在python3.3后urllib2已经不能再用，只能用urllib.request来代替
+
+2、使用BeautifulSoup模块
+安装pip install bs4
+使用
+from bs4 import  BeautifulSoup
+soup = BeautifulSoup('<p>Hello</p>','html.parser')
+print(soup.p.string)
+3、安装链接mysql的模块
+pip install PyMySQL
+
+4、同一个目录下引用文件
+from 模块名 import 函数1，函数2，函数3
+注意是：同一目录
+
+
+5、python中的none和null（空字符串）
+none表示该值是一个空对象，空值是Python里一个特殊的值，用None表示。None不能理解为0，因为0是有意义的，而None是一个特殊的空值；判断的时候 均是False
+
+
+
+
+
+
+
+
+
+全文检索：
+在大量文档中搜索单词，根据单词与文档的相关程度对结果进行排名。
+
+检索网页（crawl爬虫）、建立索引、对网页进行搜索、以及以多种不同的方式对搜索结果进行排名
+
+PageRank算法
+
+神经网络
+
+
+
+
+
+
+
+
+
