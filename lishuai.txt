@@ -1,0 +1,2 @@
+python后台执行命令
+nohup python3 monitor_mysql_to_hive.py >ls.txt 2>&1 &

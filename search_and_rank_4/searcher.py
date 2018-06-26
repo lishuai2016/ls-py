@@ -26,6 +26,10 @@ class searcher:
         return wordids, [r[1] for r in rankedscores[0:10]]
 
     # 把字符串查询且分为多个单词查询，并且返回查询的行结果和分割查询后的单词(返回的rows的内容？？？)
+
+
+
+    #执行的查询格式   返回数据格式单词出现的URL，以及单词出现的位置
     # select
     # w0.urlid, w0.location, w1.location
     # from wordlocation w0, wordlocation w1
@@ -33,6 +37,20 @@ class searcher:
     # w0.urlid = w1.urlid
     # and w0.wordid = 10
     # and w1.wordid = 17
+
+    #返回的结果格式  对应的URLID ，以及每个单词出现的位置，要是查询条件包含多个单词的话，会有多种组合形式
+    # getmatchrows('functionl programming')
+    # 根据单词位置的不同组合，每个URLID会返回多次
+    # [
+    #     (1, 327, 23),
+    #     (1, 327, 162),
+    #     (1, 327, 243),
+    #     (1, 327, 261),
+    #     (1, 327, 269),
+    #     (1, 327, 436),
+    #     (1, 327, 953)
+    #         ...
+    # ]
     def getmatchrows(self, q):
         # Strings to build the query
         fieldlist = 'w0.urlid'
@@ -50,7 +68,7 @@ class searcher:
             wordrow = self.cursor.fetchone()
             if wordrow != None:
                 wordid = wordrow[0]
-                wordids.append(wordid)   #获取单词的编号
+                wordids.append(wordid)   #获取单词的编号id进行拼接
                 if tablenumber > 0:
                     tablelist += ','
                     clauselist += ' and '
@@ -68,7 +86,7 @@ class searcher:
 
         return rows, wordids
 
-        # 对搜索结果进行评价
+        # 对搜索结果进行评价    对每个URLID进行打分
         def getscoredlist(self, rows, wordids):
             totalscores = dict([(row[0], 0) for row in rows])
 
@@ -89,7 +107,7 @@ class searcher:
           "select url from urllist where rowid=%d" % id).fetchone()[0]
 
 
-    #归一化函数，值域在0到1之间    scores是一个包含URL的ID和评价值字典
+    #归一化函数，值域在0到1之间    scores是一个包含URL的ID和评价值字典   python 0代表false
     def normalizescores(self, scores, smallIsBetter=0):
       vsmall = 0.00001  # Avoid division by zero errors
       if smallIsBetter:
@@ -98,12 +116,12 @@ class searcher:
       else:
           maxscore = max(scores.values())
           if maxscore == 0: maxscore = vsmall
-          return dict([(u, float(c) / maxscore) for (u, c) in scores.items()])
+          return dict([(u, float(c) / maxscore) for (u, c) in scores.items()])  #除以最大值进行归一化处理
 
 
     #计算单词频度的函数
     def frequencyscore(self, rows):
-      counts = dict([(row[0], 0) for row in rows])
+      counts = dict([(row[0], 0) for row in rows])   #简单地统计返回结果中URLID的条数
       for row in rows: counts[row[0]] += 1
       return self.normalizescores(counts)
 
@@ -113,22 +131,22 @@ class searcher:
       locations = dict([(row[0], 1000000) for row in rows])
       for row in rows:
           loc = sum(row[1:])
-          if loc < locations[row[0]]: locations[row[0]] = loc
+          if loc < locations[row[0]]: locations[row[0]] = loc   #找一个URLID中的最小的位置信息，也就是比较靠前的
 
       return self.normalizescores(locations, smallIsBetter=1)
 
 
     #计算单词间的距离
     def distancescore(self, rows):
-      # If there's only one word, everyone wins!
+      # If there's only one word, everyone wins!   只有一个单词的话每一行最多只有两个字段值
       if len(rows[0]) <= 2: return dict([(row[0], 1.0) for row in rows])
 
       # Initialize the dictionary with large values
       mindistance = dict([(row[0], 1000000) for row in rows])
 
       for row in rows:
-          dist = sum([abs(row[i] - row[i - 1]) for i in range(2, len(row))])
-          if dist < mindistance[row[0]]: mindistance[row[0]] = dist
+          dist = sum([abs(row[i] - row[i - 1]) for i in range(2, len(row))])  #两两之间单词距离差求和
+          if dist < mindistance[row[0]]: mindistance[row[0]] = dist     #针对每个URLID返回一个最小的距离
       return self.normalizescores(mindistance, smallIsBetter=1)
 
 
@@ -176,4 +194,7 @@ class searcher:
 
 
 if __name__ == '__main__':
-    print("main")
+    if 0:
+        print("main")
+    else:
+        print("main1111")
