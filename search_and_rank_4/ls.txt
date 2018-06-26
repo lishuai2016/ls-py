@@ -47,6 +47,33 @@ PageRank算法
 
 
 
+存储索引的数据库表设计：
+urllist表：作用是存储URL，并对URL编号
+urlid
+url
+
+wordlist表:作用是存储word，并对word编号
+wordid
+word
+
+wordlocation表：作用关联URL和单词，以及存储单词在URL对应网页中出现的位置
+urlid
+wordid
+location
+
+
+link表：记录两个网页之间的关联
+linkid 关联两个链接的编号，下面的连接词表会用到
+fromid 源网页URLID
+toid  被包含的URLID
+
+
+linkwords表：记录超链接上的链接词和
+linkid 上面两个URL关联的编号
+wordid 链接单词的一个编号
+
+
+
 
 
 

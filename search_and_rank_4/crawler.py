@@ -55,7 +55,7 @@ class crawler:
             self.con.cursor().execute("insert into wordlocation(urlid,wordid,location) values (%d,%d,%d)" % (urlid, wordid, i))
 
 
-    #Extract the text from an HTML page (no tags)
+    #Extract the text from an HTML page (no tags)   获取网页的文本内容
     def gettextonly(self, soup):
         v = soup.string
         if v == None:
@@ -86,7 +86,7 @@ class crawler:
             if res != None: return True
         return False
 
-
+    # 添加网页之间的关联
     # Add a link between two pages
     def addlinkref(self, urlFrom, urlTo, linkText):
         words = self.separateWords(linkText)
@@ -105,7 +105,7 @@ class crawler:
     # first search to the given depth, indexing pages
     # as we go
     def crawl(self, pages, depth=2):    #pages是个网页列表
-        for i in range(depth):
+        for i in range(depth):   #根据指定深度抓取网页
             newpages = {}
             for page in pages:
                 try:
@@ -114,35 +114,34 @@ class crawler:
                     print("Could not open %s" % page)
                     continue
                 try:
-                    soup = BeautifulSoup(c.read())   #获取网页中的所有链接
-                    self.addtoindex(page, soup)       #往数据库添加索引函数
+                    soup = BeautifulSoup(c.read())   #获取网页中的内容
+                    self.addtoindex(page, soup)       #往数据库添加索引函数（在urllist表，wordlist表，wordlocation表添加数据）
 
-                    links = soup('a')
+                    links = soup('a')  #获取网页中的所有超链接
                     for link in links:
                         if ('href' in dict(link.attrs)):
-                            url = urllib.parse.urljoin(page, link['href']) # url=urljoin(page,link['href'])废弃
+                            url = urllib.parse.urljoin(page, link['href'])     # url=urljoin(page,link['href'])废弃
                             if url.find("'") != -1: continue
-                            url = url.split('#')[0]  # remove location portion
+                            url = url.split('#')[0]  # remove location portion  去掉位置部分
                             if url[0:4] == 'http' and not self.isindexed(url):
                                 newpages[url] = 1
                             linkText = self.gettextonly(link)
-                            self.addlinkref(page, url, linkText)
+                            self.addlinkref(page, url, linkText)  #添加网页之间的关联
 
                     self.dbcommit()
                 except:
-                    print
-                    "Could not parse page %s" % page
+                    print("Could not parse page %s" % page)
 
-            pages = newpages
+            pages = newpages   #更新抓取的URL列表
 
 
     # Create the database tables创建数据库中的5个表
     def createindextables(self):
-        self.con.cursor().execute('''create table urllist(url VARCHAR(100))''')
-        self.con.cursor().execute('''create table wordlist(word VARCHAR(100))''')
-        self.con.cursor().execute('''create table wordlocation(urlid VARCHAR(12),wordid VARCHAR(12),location VARCHAR(100))''')
-        self.con.cursor().execute('''create table link(fromid integer,toid integer)''')
-        self.con.cursor().execute('''create table linkwords(wordid VARCHAR(12),linkid VARCHAR(12))''')
+        self.con.cursor().execute('''create table urllist(urlid int,url VARCHAR(100))''')
+        self.con.cursor().execute('''create table wordlist(wordid int,word VARCHAR(100))''')
+        self.con.cursor().execute('''create table wordlocation(urlid int,wordid int,location int)''')
+        self.con.cursor().execute('''create table link(linkid int,fromid int,toid int)''')
+        self.con.cursor().execute('''create table linkwords(wordid int,linkid int)''')
         self.con.cursor().execute('''create index wordidx on wordlist(word )''')
         self.con.cursor().execute('''create index urlidx on urllist(url )''')
         self.con.cursor().execute('''create index wordurlidx on wordlocation(wordid)''')
