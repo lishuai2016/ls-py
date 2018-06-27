@@ -20,6 +20,9 @@ for line in open('schedule.txt','r'):
   # Add details to the list of possible flights
   flights[(origin,dest)].append((depart,arrive,int(price)))
 
+
+
+#给定时间精确到当天的多少分钟
 def getminutes(t):
   x=time.strptime(t,'%H:%M')
   return x[3]*60+x[4]
@@ -199,3 +202,27 @@ def geneticoptimize(domain,costf,popsize=50,step=1,
     print(scores[0][0])
     
   return scores[0][1]
+
+
+
+#主函数
+if __name__=="__main__":
+    print("main")
+    people = [('Seymour', 'BOS'),
+              ('Franny', 'DAL'),
+              ('Zooey', 'CAK'),
+              ('Walt', 'MIA'),
+              ('Buddy', 'ORD'),
+              ('Les', 'OMA')]
+    # Laguardia
+    destination = 'LGA'
+
+    flights = {}
+    #  lines=[line for line in open(filename,'r')]
+    for line in open('schedule.txt', 'r'):
+      origin, dest, depart, arrive, price = line.strip().split(',')
+      flights.setdefault((origin, dest), [])
+
+      # Add details to the list of possible flights
+      flights[(origin, dest)].append((depart, arrive, int(price)))
+      print(flights)
