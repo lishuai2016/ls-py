@@ -316,7 +316,7 @@ def dlcs_api_request(path, params='', user='', passwd='', throttle=True):
     @todo: back off on 503's (HTTPError, URLError? @todo: testing).
 
     Returned XML does not always correspond with given del.icio.us examples
-    @todo: (cf. help/api/... and post's attributes)
+    @todo: (cf_2. help/api/... and post's attributes)
 
     .. [#] http://del.icio.us/help/api/
     """
