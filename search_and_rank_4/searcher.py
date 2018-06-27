@@ -3,6 +3,7 @@ import urllib.parse
 from bs4 import  BeautifulSoup
 import re
 import pymysql
+#引入自己编写神经网络模块
 from search_and_rank_4 import nn
 mynet=nn.searchnet('nn.db')
 
@@ -150,7 +151,7 @@ class searcher:
       return self.normalizescores(mindistance, smallIsBetter=1)
 
 
-    #
+    #根据链接回指即有多少个网页指向当前网页，简单统计指向该网页链接的个数
     def inboundlinkscore(self, rows):
       uniqueurls = dict([(row[0], 1) for row in rows])
       inboundcount = dict(
@@ -158,7 +159,7 @@ class searcher:
       return self.normalizescores(inboundcount)
 
 
-    #
+    #通过连接上的文本和搜索词的匹配程度来打分，因为一般连接上的文字介绍是比较符合网页内容的
     def linktextscore(self, rows, wordids):
       linkscores = dict([(row[0], 0) for row in rows])
       for wordid in wordids:
@@ -173,7 +174,7 @@ class searcher:
       return normalizedscores
 
 
-    #
+    #通过pagerank算法计算各个网页的得分，然后存入数据库，需要的时候去数据库查询即可
     def pagerankscore(self, rows):
       pageranks = dict(
           [(row[0], self.con.execute('select score from pagerank where urlid=%d' % row[0]).fetchone()[0]) for row in
@@ -183,7 +184,7 @@ class searcher:
       return normalizedscores
 
 
-    #
+    # 神经网络计算网页的得分
     def nnscore(self, rows, wordids):
       # Get unique URL IDs as an ordered list
       urlids = [urlid for urlid in dict([(row[0], 1) for row in rows])]

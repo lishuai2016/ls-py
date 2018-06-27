@@ -74,6 +74,19 @@ wordid 链接单词的一个编号
 
 
 
+PageRank算法需要的表：
+pagerank
+urlid  URL链接id（主键）
+score  对应URL的PR值
+
+
+
+神经网络算法需要的表：（这是一个三层的神经网络，一个输入层，一个隐藏层，一个输出层）
+hiddennode(create_key)隐藏层
+wordhidden(fromid,toid,strength)从单词层到隐藏层   strength表示权重
+hiddenurl(fromid,toid,strength)从隐藏层到输出层   strength表示权重
+
+
 
 
 

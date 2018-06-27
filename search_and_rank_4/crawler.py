@@ -149,11 +149,11 @@ class crawler:
         self.con.cursor().execute('''create index urlfromidx on link(fromid)''')
         self.dbcommit()
 
-    #PageRank排名算法
+    #PageRank排名算法  计算公式  0.15+ 0.85*（linkingpr / linkingcount）
     def calculatepagerank(self, iterations=20):
         # clear out the current page rank tables
         self.con.execute('drop table if exists pagerank')
-        self.con.execute('create table pagerank(urlid primary key,score)')
+        self.con.execute('create table pagerank(urlid primary key,score)')  #创建PageRank表
 
         # initialize every url with a page rank of 1
         for (urlid,) in self.con.execute('select rowid from urllist'):
