@@ -1,0 +1,29 @@
+#经销商信息保存
+merchantInsrt_FirstStep:
+{
+	"par0":
+	{
+		"ask": "$ask|CONSOLE",
+		"answer": "$answer|CUSTOMER",
+		"serialNo": "$serialNo|F9095DC5D8D14A8ABED89B5F6D934331",
+		"idemSerialNo": "!createRandomString(32)",
+		"serviceScence": "$serviceScence|13",
+		"transDateTime": "$transDateTime|2018-07-03 10\:00\:13",
+		"tenantId": "&tenantId|001",
+		"channelNo": "$channelNo|c02ceecd424b45e2a05247a8fe49efbb",
+		"sign": none,
+		"extendInfo": none
+	}
+	"par1":
+	{
+		"authId": "$authId|AUTH00001", 
+		"token": "$token|8D6CB0E114E74F979209F558E1AF5C69"
+	}
+	"par2":
+	{
+		"organName": "$organName|20180703",
+		"shortName": "$shortName|0703",
+		"certificateKind": "$certificateKind|18",
+		"certificateNo": "$certificateNo|11111222223333"
+	}
+}

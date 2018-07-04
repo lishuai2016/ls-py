@@ -1,0 +1,9 @@
+测试编号: user_merchantInsertFirstStep
+数据输入: 
+数据输出: 
+用例标签: 调试
+执行次数: 1
+函数名称:
+	#保存
+    ExEComp|user_merchantInsertFirstStep_normal
+测试要点概要: 经销商数据保存

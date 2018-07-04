@@ -1,0 +1,4 @@
+#根据证件号码获取resourceID
+Get_user_certificate_info_BycertificateNo: select RESOURCE_ID from $gv_userDBName.user_certificate_info where CERTIFICATE_NO ='$CERTIFICATE_NO'
+#根据RESOURCE_ID查询证件文档表
+Check_user_certificate_info_ByresourceId: select RESOURCE_ID,CERTIFICATE_NO,CERTIFICATE_KIND,CERTIFICATE_STATUS from $gv_userDBName.user_certificate_info where CERTIFICATE_NO ='$CERTIFICATE_NO'

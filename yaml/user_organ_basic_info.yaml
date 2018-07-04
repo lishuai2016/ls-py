@@ -1,0 +1,2 @@
+#根据organName获取userID
+Get_user_organ_basic_info_ByorganName: select USER_ID from $gv_userDbName.user_organ_basic_info where ORGAN_NAME = '$ORGAN_NAME'

@@ -1,0 +1,1 @@
+Check_user_customer_resource_relation_Byuserid: select RESOURCE_TYPE,CLIENT_RESOURCE_STATUS from $gv_userDBName.user_customer_resource_relation where USER_ID = '$USER_ID'

@@ -1,0 +1,2 @@
+#根据userId获取ORGAN_ID
+Get_user_organization_info_Byuserid: select ORGAN_ID from $gv_userDBName.user_organization_info where USER_ID='$USER_ID'

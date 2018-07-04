@@ -1,0 +1,25 @@
+Python解析yaml文件
+
+
+什么是YAML
+
+YAML参考了其他多种语言，包括：XML、C语言、Python、Perl以及电子邮件格式RFC2822。 Clark Evans在2001年5月在首次发表了这种语言，另外Ingy döt Net与Oren Ben-Kiki也是这语言的共同设计者。
+
+YAML是"YAML Ain't a Markup Language"（YAML不是一种置标语言）的递归缩写。 在开发的这种语言时，YAML 的意思其实是："Yet Another Markup Language"（仍是一种置标语言），
+
+格式及示例
+
+数据结构可以用类似大纲的缩排方式呈现，结构通过缩进来表示，连续的项目通过减号“-”来表示，map结构里面的key/value对用冒号“:”来分隔。
+
+
+1、安装yaml包
+pip install PyYaml
+2、使用
+import yaml
+# 读取文件
+f = open('C://py_learn//ls-py//yaml//test.yaml')
+f = open('test.yaml')
+# 导入
+x = yaml.load(f)
+#打印
+print(x)

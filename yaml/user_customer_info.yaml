@@ -1,0 +1,2 @@
+#根据userId查询经销商客户
+Check_user_customer_info_ByuserId: select CLIENT_CATEGORY,ACTIVE_STATUS,RECORD_STATUS,REALNAME_FLAG from $gv_userDbName.user_customer_info where USER_ID = '$USER_ID'
