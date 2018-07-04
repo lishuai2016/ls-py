@@ -1,0 +1,3 @@
+1、print("hello" +8)和print("hello" +str(8))
+print('hello'+8)简单来说，就是8是整数，不能隐式转换为字符串类型，要想转换加上转换函数就好了，比如print("hello" +str(8))
+Python没有Java中的那样字段类型转换机制
