@@ -1,0 +1,55 @@
+TensorFlow is an open source software library for numerical computation using data flow graphs.
+TensorFlow是一个开源软件库，用于使用数据流图进行数值计算。
+
+
+深度学习框架
+
+节点（Nodes）在图中表示数学操作，图中的线（edges）则表示在节点间相互联系的多维数据数组，即张量（tensor）。
+它灵活的架构让你可以在多种平台上展开计算，例如台式计算机中的一个或多个CPU（或GPU），服务器，移动设备等等。
+TensorFlow 最初由Google大脑小组（隶属于Google机器智能研究机构）的研究员和工程师们开发出来，
+用于机器学习和深度神经网络方面的研究，但这个系统的通用性使其也可广泛用于其他计算领域
+
+
+在Anaconda3中安装tensorflow
+
+
+(F:\python\Anaconda3) C:\Users\lishuai>conda --version
+conda 4.3.30
+
+(F:\python\Anaconda3) C:\Users\lishuai>conda create -n tensorflow python=3.5
+Fetching package metadata .............
+Solving package specifications: .
+
+Package plan for installation in environment F:\python\Anaconda3\envs\tensorflow
+:
+
+The following NEW packages will be INSTALLED:
+
+    certifi:        2018.4.16-py35_0
+    pip:            10.0.1-py35_0
+    python:         3.5.5-h0c2934d_2
+    setuptools:     39.2.0-py35_0
+    vc:             14-h0510ff6_3
+    vs2015_runtime: 14.0.25123-3
+    wheel:          0.31.1-py35_0
+    wincertstore:   0.2-py35hfebbdb8_0
+
+Proceed ([y]/n)? y
+
+vs2015_runtime 100% |###############################| Time: 0:00:53  39.25 kB/s
+vc-14-h0510ff6 100% |###############################| Time: 0:00:00 193.46 kB/s
+python-3.5.5-h 100% |###############################| Time: 0:02:21 134.57 kB/s
+certifi-2018.4 100% |###############################| Time: 0:00:00 889.04 kB/s
+wincertstore-0 100% |###############################| Time: 0:00:00 985.95 kB/s
+setuptools-39. 100% |###############################| Time: 0:00:00 681.82 kB/s
+wheel-0.31.1-p 100% |###############################| Time: 0:00:00 862.42 kB/s
+pip-10.0.1-py3 100% |###############################| Time: 0:00:02 747.80 kB/s
+#
+# To activate this environment, use:
+# > activate tensorflow
+#
+# To deactivate an active environment, use:
+# > deactivate
+#
+# * for power-users using bash, you must source
+#

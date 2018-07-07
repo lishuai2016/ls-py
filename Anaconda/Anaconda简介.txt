@@ -1,0 +1,10 @@
+什么是 Anaconda？
+
+Anaconda is the leading open data science platform powered by Python.
+Anaconda 是一个由 Python 语言编写领先的开放数据科学平台
+
+Anaconda Python 是完全免费的企业级的Python发行大规模数据处理、预测分析和科学计算工具。
+Anaconda 是 Python 科学技术包的合集，功能和 Python(x,y) 类似。它是新起之秀，已更新多次了。
+包管理使用 conda，GUI基于PySide，容量适中，但该有的科学计算包都有。
+Anaconda 支持所有操作系统平台，它的安装、更新和删除都很方便,且所有的东西都只安装在一个目录中。
+Anaconda目前提供Python 2.6.X,Python 2.7.X,Python 3.3.X和Python 3.4.X四个系列发行包，这也是其他发行版所望尘莫及的。
