@@ -1,0 +1,4 @@
+python字符串前缀的知识：
+1、在字符串前加上r或R表示该字符串是非转义的原始字符串。
+2、在字符串前加上u或U表示该字符串是unicode字符串。
+3、\表示转义，在路径中需要进行处理，如  df = pd.read_csv(r'C:\Users\lishuai29\Desktop\python\pydata-book-master\ch06\ex1.cvs',encoding='utf-8')
