@@ -1,21 +1,24 @@
 
 
-海量日志数据，提取出某日访问百度次数最多的那个IP
+# 海量日志数据，提取出某日访问百度次数最多的那个IP
 
 
 """问题一：海量日志数据，提取出某日访问百度次数最多的那个IP
    解决思路：因为问题中提到了是海量数据，所以我们想把所有的日志数据读入内存，再去排序，找到出现次数最多的，显然行不通了。这里
-   我们假设内存足够，我们可以仅仅只用几行代码，就可以求出最终的结果"""：
-   代码如下：
-   #python2.7
-   from collections import Counter
-   if __name__ == '__main__':
-      ip_list = read_log()     #读取日志到列表中，这里为了简化，我们用一个小的列表来代替。
-      ip_list = ["192.168.1.2"，"192.168.1.3","192.168.1.3","192.168.1.4","192.168.1.2"]
-      ip_counter = Counter(ip_list) #使用python内置的计数函数，进行统计
-      #print ip_counter.most_common() Out:[('192.168.1.3', 2), ('192.168.1.2', 2), ('192.168.1.4', 1)]
-      print ip_counter.most_common()[0][0]    #out:192.168.1.3
-   在内存足够的情况下，我们可以看到仅仅使用了5、6行代码就解决了这个问题
+   我们假设内存足够，我们可以仅仅只用几行代码，就可以求出最终的结果"""
+
+   # 代码如下：
+   # #python2.7
+   # from collections import Counter
+   # if __name__ == '__main__':
+   #    ip_list = read_log()     #读取日志到列表中，这里为了简化，我们用一个小的列表来代替。
+   #    ip_list = ["192.168.1.2"，"192.168.1.3","192.168.1.3","192.168.1.4","192.168.1.2"]
+   #    ip_counter = Counter(ip_list) #使用python内置的计数函数，进行统计
+   #    #print ip_counter.most_common() Out:[('192.168.1.3', 2), ('192.168.1.2', 2), ('192.168.1.4', 1)]
+   #    print ip_counter.most_common()[0][0]    #out:192.168.1.3
+   # 在内存足够的情况下，我们可以看到仅仅使用了5、6行代码就解决了这个问题
+
+
    """
    下面才是我们的重点，假如内存有限，不足以装得下所有的日志数据，应该怎么办？
    既然内存都不能装得下所有数据，那么我们后面的使用排序算法都将无从谈起，这里我们采取大而化小的做法。
@@ -52,6 +55,7 @@ def hash_file():
             print line
     for i in range(1000):
         temp_path_list[i].close()
+        
 def cal_query_frequency():
     for root,dirs,files in os.walk(temp_files):
         for file in files:
